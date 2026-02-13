@@ -1,27 +1,14 @@
-
-const express = require('express'); 
+const fs = require('fs'); 
 const path = require('path');
 
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-// Serve static files from the "public" folder 
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Define routes for different pages
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'index.html'));
+// Route to serve the blog page
+app.get('/blog', (req, res) => {
+    res.sendFile(path.join(__dirname, 'views', 'blog.html'));
 });
 
-app.get('/about', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'about.html'));
-});
-
-app.get('/contact', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'contact.html'));
-});
-
-// Start the server
-app.listen(PORT, () => {
-    console.log(`Server running at http://localhost:${PORT}`);
+// API Route to get the blog data
+app.get('/api/posts', (req, res) => {
+    const postsData = fs.readFileSync(path.join(__dirname, 'data', 'posts.json'));
+    const posts = JSON.parse(postsData);
+    res.json(posts);
 });
