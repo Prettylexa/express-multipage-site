@@ -10,7 +10,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // --- Routes from Task 1 ---
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'views', 'index.html'));
+    res.sendFile(path.join(__dirname, 'views', 'blog.html'));
 });
 
 // --- Routes from Task 2 (The Challenge) ---
